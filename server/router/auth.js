@@ -1,6 +1,7 @@
 const express =require('express');
 const router =express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 require('../db');
 const User = require('../model/userSchema');
 const Contact = require('../model/contactSchema');
@@ -103,6 +104,7 @@ router.post('/signin', async(req,res)=>{
     // console.log(req.body);
     // res.json({message:"awesome"})
     try{
+        let token;
         const {email,password}=req.body;
 
         if(!email || !password){
@@ -112,11 +114,15 @@ router.post('/signin', async(req,res)=>{
 
         const userLogin = await User.findOne({email:email});
 
+        
+
         if(userLogin){
             const isMatch= await bcrypt.compare(password, userLogin.password);
-            console.log(`user is ${userLogin}`)
+            // console.log(`user is ${userLogin}`)
+            token = await userLogin.generateAuthToken();
+            console.log(token);
         
-            if(!isMatch){
+        if(!isMatch){
 
             return res.status(400).json({error:"invalid p credentials!"});
 
