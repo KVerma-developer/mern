@@ -4,7 +4,7 @@ const dotenv =require('dotenv');
 const app =express();
 const User = require('./model/userSchema');
 dotenv.config({path:'./config.env'});
-require('./db');
+require('./db');   
 app.use(express.json());
 
 
