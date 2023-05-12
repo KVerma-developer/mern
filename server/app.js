@@ -1,16 +1,25 @@
 const express =require ('express');
 const mongoose = require('mongoose');
+const dotenv =require('dotenv');
 const app =express();
+// const User = require('./model/userSchema');
+dotenv.config({path:'./config.env'});
+require('./db');
+app.use(express.json());
 
 
-// database conn.
+
+//for routes links
+app.use(require('./router/auth'));
+
+const PORT = process.env.PORT;
 
 
-const DB= 'mongodb+srv://mern1234:mern1234@cluster0.tjfidvy.mongodb.net/mernstack?retryWrites=true&w=majority';
-mongoose.connect(DB).then(()=>{
-    console.log(`connection successfully`)
-}).catch((err)=> console.log(`no connection`));
 
+
+
+ 
+//----------database----------------------------
 // ,{
 //     useNewUrlParser:true,
 //     useCreateIndex:true, 
@@ -24,7 +33,10 @@ const middleware=(req,res,next)=>{
     console.log("hello this is middleware")
     next()
 
-}
+};
+
+
+
 
 
 
@@ -35,10 +47,10 @@ const middleware=(req,res,next)=>{
 
 
 
-app.get('/', (req,res)=>{
-    res.send('Hello World server')
+// app.get('/', (req,res)=>{
+//     res.send(  `Hello World server from server app`)
 
-});
+// });
 
 app.get('/about', middleware,(req,res)=>{
     console.log("about crossed")
@@ -61,6 +73,6 @@ app.get('/signup', (req,res)=>{
 
 
 
-app.listen(3000,()=>{
-    console.log("server is running at port 3000")
+app.listen(PORT,()=>{
+    console.log(`server is running at port ${PORT}`)
 })
