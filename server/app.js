@@ -2,7 +2,7 @@ const express =require ('express');
 const mongoose = require('mongoose');
 const dotenv =require('dotenv');
 const app =express();
-// const User = require('./model/userSchema');
+const User = require('./model/userSchema');
 dotenv.config({path:'./config.env'});
 require('./db');
 app.use(express.json());
