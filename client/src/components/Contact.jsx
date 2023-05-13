@@ -36,7 +36,7 @@ const Contact = () => {
     <div className="text-center">
       <h2 className="text-2xl font-bold mb-4">Contact Me</h2>
     </div>
-    <form id='contact-form'>
+    <form id='contact-form' method='POST'>
       <div className="mb-4">
         <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
           <MdAccountCircle className="inline"/>

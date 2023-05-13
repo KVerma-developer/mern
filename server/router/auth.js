@@ -6,6 +6,19 @@ require('../db');
 const User = require('../model/userSchema');
 const Contact = require('../model/contactSchema');
 
+//--------chatgpt---------------
+// const app = express();
+// const bodyParser = require('body-parser');
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+
+
+
+//--------chatgpt-----------end----
+
+
+
+
 router.get('/', (req,res)=>{
     res.send(`Hello World server from router js`)
 
@@ -44,6 +57,7 @@ router.get('/', (req,res)=>{
 ///registration
 
 router.post('/register', async (req,res)=>{
+    // console.log('Register route hit');
 
     const{name,email,phone,password,cpassword}=req.body; //ec6
     

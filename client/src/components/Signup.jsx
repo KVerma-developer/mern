@@ -1,5 +1,5 @@
 import React ,{useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import {MdAccountCircle} from 'react-icons/md';
 import {MdEmail} from 'react-icons/md';
 import {FiSmartphone} from 'react-icons/fi';
@@ -7,6 +7,7 @@ import {RiLockPasswordLine} from 'react-icons/ri';
 import loginLogo from '../assets/login.png';
 
 const Signup = () => {
+  const navigate=useNavigate();
   const [user, setUser] = useState({
     name:"",email:"",phone:"",password:"",cpassword:""
   });
@@ -14,11 +15,36 @@ const Signup = () => {
   let name,value;
 
   const handleInputs=(e)=>{
-    console.log(e);
+    // console.log(e);
     name=e.target.name;
     value=e.target.value;
 
     setUser({...user,[name]:value});
+  }
+
+  const PostData = async(e)=>{
+    e.preventDefault();
+    const {name , email ,phone,password,cpassword} =user;
+    const res = await fetch("http://localhost:5000/register",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        name,email,phone,password,cpassword
+    })
+  })
+  const data = await res.json();
+  if(res.status===422 || !data){
+    window.alert("invalid registration!");
+    console.log("invalid registration");
+  }else{
+    window.alert("Registration Successfull");
+    console.log("Registration Successfull");
+
+    navigate('/login');
+
+  }
   }
 
   return (
@@ -120,7 +146,7 @@ const Signup = () => {
     <div className="text-center">
       <h2 className="text-2xl font-bold mb-4">Registration</h2>
     </div>
-    <form id='register-form'>
+    <form id='register-form' method='POST'>
       <div className="mb-4">
         <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
           <MdAccountCircle className="inline"/>
@@ -156,8 +182,9 @@ const Signup = () => {
         </label>
         <input type="password" value={user.cpassword} onChange={handleInputs} id="cpassword" name="cpassword" placeholder="Confirm Password" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
+
       <div className="text-center">
-        <input type='submit' name='signup' id='signup' value='Register' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"/>
+        <input onClick={PostData} type='submit' name='signup' id='signup' value='Register' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"/>
       </div>
     </form>
     </div>
