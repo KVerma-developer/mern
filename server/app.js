@@ -53,6 +53,7 @@ const middleware=(req,res,next)=>{
 // });
 
 app.get('/about', middleware,(req,res)=>{
+    
     console.log("about crossed")
     res.send('Hello about World server')
 
@@ -63,6 +64,7 @@ app.get('/contact', (req,res)=>{
 
 });
 app.get('/signin', (req,res)=>{
+    
     res.send('Hello signIn World server')
 
 });
