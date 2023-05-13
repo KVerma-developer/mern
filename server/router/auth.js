@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 require('../db');
 const User = require('../model/userSchema');
 const Contact = require('../model/contactSchema');
+const Authenticate = require('../middleware/authenticate')
 
 //--------chatgpt---------------
 // const app = express();
@@ -168,5 +169,16 @@ router.post('/signin', async(req,res)=>{
 
     }
 })
+
+
+//about us page
+
+//authenticate is middle ware
+
+router.get("/about",Authenticate,(req,res)=>{
+    console.log("hello about");
+    res.send("hello about world from server");
+
+}); 
     
 module.exports= router;

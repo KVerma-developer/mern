@@ -61,12 +61,12 @@ const middleware=(req,res,next)=>{
 
 // });
 
-app.get('/about', middleware,(req,res)=>{
+// app.get('/about',(req,res)=>{
     
-    console.log("about crossed")
-    res.send('Hello about World server')
+//     console.log("about crossed")
+//     res.send('Hello about World server')
 
-});
+// });
 
 app.get('/contact', (req,res)=>{
     res.send('Hello contact World server')
