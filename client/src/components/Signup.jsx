@@ -11,6 +11,16 @@ const Signup = () => {
     name:"",email:"",phone:"",password:"",cpassword:""
   });
 
+  let name,value;
+
+  const handleInputs=(e)=>{
+    console.log(e);
+    name=e.target.name;
+    value=e.target.value;
+
+    setUser({...user,[name]:value});
+  }
+
   return (
     <>
     {/* <section >
@@ -116,35 +126,35 @@ const Signup = () => {
           <MdAccountCircle className="inline"/>
           Name
         </label>
-        <input type="text"  id="name" name="name" placeholder="Name" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input type="text" value={user.name} onChange={handleInputs} id="name" name="name" placeholder="Name" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
       <div className="mb-4">
         <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
           <MdEmail className="inline"/>
           Email
         </label>
-        <input type="text" id="email" name="email" placeholder="Email" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input type="text" value={user.email} onChange={handleInputs} id="email" name="email" placeholder="Email" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
       <div className="mb-4">
         <label htmlFor="phone" className="block text-gray-700 font-bold mb-2">
           <FiSmartphone className="inline"/>
           Phone
         </label>
-        <input type="text" id="phone" name="phone" placeholder="Phone" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input type="text" id="phone" value={user.phone} onChange={handleInputs} name="phone" placeholder="Phone" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
       <div className="mb-4">
         <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
           <RiLockPasswordLine className="inline"/>
           Password
         </label>
-        <input type="password" id="password" name="password" placeholder="Password" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input type="password" value={user.password} onChange={handleInputs} id="password" name="password" placeholder="Password" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
       <div className="mb-4">
         <label htmlFor="cpassword" className="block text-gray-700 font-bold mb-2">
           <RiLockPasswordLine className="inline"/>
           Confirm Password
         </label>
-        <input type="password" id="cpassword" name="cpassword" placeholder="Confirm Password" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input type="password" value={user.cpassword} onChange={handleInputs} id="cpassword" name="cpassword" placeholder="Confirm Password" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
       <div className="text-center">
         <input type='submit' name='signup' id='signup' value='Register' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"/>
