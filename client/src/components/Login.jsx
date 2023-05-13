@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate } from 'react-router-dom';
 
 import {MdEmail} from 'react-icons/md';
 
@@ -7,8 +7,32 @@ import {RiLockPasswordLine} from 'react-icons/ri';
 import loginLogo from '../assets/login.png';
 
 const Login = () => {
+  const Navigate=useNavigate();
   const [email,setEmail]=useState('');
   const [password,setPassword]=useState('');
+
+  const loginUser = async(e)=>{
+    e.preventDefault();
+     
+    const res = await fetch('http://localhost:5000/signin',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          email,
+          password
+          })
+          
+    });
+    const data = res.json();
+    if(res.status ===400 || !data){
+      window.alert("Invalid Credentials")
+  }else{
+    window.alert(`You logged in successfully with ${email}`);
+    Navigate('/');
+  }
+}
   return (
     <div>
       
@@ -17,14 +41,14 @@ const Login = () => {
     <div className="text-center">
       <h2 className="text-2xl font-bold mb-4">Registration</h2>
     </div>
-    <form id='register-form'>
+    <form method='POST' id='register-form'>
       
       <div className="mb-4">
         <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
           <MdEmail className="inline"/>
           Email
         </label>
-        <input type="text" id="email" name="email" placeholder="Email" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input required type="text" value={email} onChange={(e)=>setEmail(e.target.value)} id="email" name="email" placeholder="Email" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
       
       <div className="mb-4">
@@ -32,11 +56,11 @@ const Login = () => {
           <RiLockPasswordLine className="inline"/>
           Password
         </label>
-        <input type="password" id="password" name="password" placeholder="Password" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input required type="password" value={password} onChange={(e)=>setPassword(e.target.value)}  id="password" name="password" placeholder="Password" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
       
       <div className="text-center">
-        <input type='submit' name='signin' id='signin' value='Login In' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"/>
+        <input type='submit' onClick={loginUser} name='signin' id='signin' value='Login In' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"/>
       </div>
     </form>
     </div>
