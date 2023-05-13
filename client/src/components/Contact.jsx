@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useState} from 'react';
+
 import {MdAccountCircle} from 'react-icons/md';
 import {MdEmail} from 'react-icons/md';
 import {FiSmartphone} from 'react-icons/fi';
@@ -7,6 +8,41 @@ import {MdOutlineMapsHomeWork} from 'react-icons/md';
 import loginLogo from '../assets/login.png';
 
 const Contact = () => {
+
+  const [contact, setContact] = useState({
+    name:"",email:"",phone:"",address:"",message:""
+  });
+  let name,value;
+
+  const handleContactInputs=(e)=>{
+    // console.log(e);
+    name=e.target.name;
+    value=e.target.value;
+
+    setContact({...contact,[name]:value});
+  }
+  const PostContact = async(e)=>{
+    e.preventDefault();
+    const {name , email ,phone,address,message} =contact;
+    const res = await fetch("http://localhost:5000/contactform",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        name,email,phone,address,message
+    })
+  })
+  const data = await res.json();
+  if( res.status===422 || !data){
+    window.alert("fill form properly!");
+    console.log("ifill form properly!");
+  }else{
+    window.alert("Form submitted Successfull");
+    console.log("Form submitted Successfull");
+ }}
+
+
   return (
     <>
      <div className="  pt-20 flex flex-col space-y-4">
@@ -43,7 +79,7 @@ const Contact = () => {
           Name
         </label>
         
-        <input type="text" id="name" 
+        <input  value={contact.name} onChange={handleContactInputs} type="text" id="name" 
         name="name" 
         placeholder="Name" 
         required
@@ -57,7 +93,7 @@ const Contact = () => {
           Email
         </label>
         
-        <input required type="email" id="email" name="email" placeholder="Email" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input value={contact.email}  onChange={handleContactInputs} required type="email" id="email" name="email" placeholder="Email" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       
       </div>
 
@@ -67,7 +103,7 @@ const Contact = () => {
           Phone
         </label>
 
-        <input  type="number" id="phone" name="phone" placeholder="Phone" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input value={contact.phone} required onChange={handleContactInputs} type="number" id="phone" name="phone" placeholder="Phone" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       
       </div>
 
@@ -76,17 +112,17 @@ const Contact = () => {
           <RiLockPasswordLine className="inline"/>
           Address
         </label>
-        <input type="text" id="address" name="address" placeholder="address"  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input required value={contact.address} onChange={handleContactInputs} type="text" id="address" name="address" placeholder="address"  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
       <div className="mb-4">
         <label htmlFor="message" className="block text-gray-700 font-bold mb-2">
           <RiLockPasswordLine className="inline"/>
           Message
         </label>
-        <textarea rows={5} cols={5} type="text" id="message" name="message" placeholder="type your message" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <textarea value={contact.message} onChange={handleContactInputs} rows={5} cols={5} type="text" id="message" name="message" placeholder="type your message" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
       <div className="text-center">
-        <button type='submit'  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Send Me!</button>
+        <input type='submit' onClick={PostContact} name='contact' id='contact' value='Send' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"/>
       </div>
     </form>
     </div>

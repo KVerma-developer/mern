@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import {MdEmail} from 'react-icons/md';
@@ -7,6 +7,8 @@ import {RiLockPasswordLine} from 'react-icons/ri';
 import loginLogo from '../assets/login.png';
 
 const Login = () => {
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
   return (
     <div>
       

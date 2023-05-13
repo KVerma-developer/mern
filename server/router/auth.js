@@ -96,6 +96,10 @@ router.post('/register', async (req,res)=>{
 
 // });
 router.post('/contactform', async(req, res) => {
+    const{name,email,phone,address,message}=req.body; 
+    if(!name || !email || !phone || !address || !message){
+        return res.status(422).json({error:"fill form proper"});
+    }
     try {
         const newContact = new Contact({
             name: req.body.name,
