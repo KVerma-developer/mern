@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <div>
       
-<nav className="bg-gradient-to-r from-purple-500 to-sky-500 p-4">
+<nav className="shadow-lg fixed top-0 left-0 w-full bg-gradient-to-r from-purple-500 to-sky-500 p-4">
   <div className="flex items-center justify-between">
     <div className="flex items-center">
       <img src={Logo}  alt="Logo" className="h-12 mr-4"/>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import {MdAccountCircle} from 'react-icons/md';
 import {MdEmail} from 'react-icons/md';
@@ -7,6 +7,10 @@ import {RiLockPasswordLine} from 'react-icons/ri';
 import loginLogo from '../assets/login.png';
 
 const Signup = () => {
+  const [user, setUser] = useState({
+    name:"",email:"",phone:"",password:"",cpassword:""
+  });
+
   return (
     <>
     {/* <section >
@@ -101,7 +105,7 @@ const Signup = () => {
 
 
      {/* --------gpy--------------- */}
-     <section className="flex justify-center items-center h-screen">
+     <section className=" t-16 flex justify-center items-center h-screen">
   <div className="bg-white rounded-lg shadow-lg p-8">
     <div className="text-center">
       <h2 className="text-2xl font-bold mb-4">Registration</h2>
@@ -112,7 +116,7 @@ const Signup = () => {
           <MdAccountCircle className="inline"/>
           Name
         </label>
-        <input type="text" id="name" name="name" placeholder="Name" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input type="text"  id="name" name="name" placeholder="Name" autoComplete='off' className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
       <div className="mb-4">
         <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
